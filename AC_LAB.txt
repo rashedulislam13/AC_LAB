@@ -1,0 +1,196 @@
+1:  Write a program to generate Amplitude Modulation using MATLAB
+
+
+
+clc;
+clear all;
+close all;
+Am =1;
+Ac=2;
+fm=2;
+fc=50;
+t= 0:0.001:1;
+k=0.8;
+m= Am*sin(2*pi*fm*t);
+c= Ac*cos(2*pi*fc*t);
+y=(1+k*m).*c;
+
+subplot(3,1,1);
+plot(t,m);
+title('Message Signal');
+
+subplot(3,1,2);
+plot(t,c);
+title('Carrier Signal');
+
+subplot(3,1,3);
+plot(t,y);
+title('Modulated Signal');
+
+
+
+
+2.write a program to generate Frequency Modulation using MATLAB
+
+clc;
+clear all;
+close all;
+Am =1;
+Ac=2;
+fm=2;
+fc=20;
+t= 0:0.001:1;
+k=14;
+B=k*Am/fm;
+m= Am*sin(2*pi*fm*t);
+c= Ac*cos(2*pi*fc*t);
+y=Ac*cos(2*pi*fc*t+B*(sin(2*pi*fm*t)));
+
+subplot(3,1,1);
+plot(t,m);
+title('Message Signal');
+
+subplot(3,1,2);
+plot(t,c);
+title('Carrier Signal');
+
+subplot(3,1,3);
+plot(t,y);
+title('Modulated Signal');
+
+
+
+
+3.Write a program to generate Phase Modulation using MATLAB
+
+clc;
+clear all;
+close all;
+am = 1
+ac = 1
+fc = 50
+fm = 2
+fs = 20
+t = 1
+t1 = 0:0.001:t
+wm = 2*pi*fm
+m = am*cos(wm*t1)
+subplot(3,1,1)
+plot(t1,m)
+title('message signal')
+xlabel('time')
+ylabel('amplitude')
+wc=2*pi*fc;
+c=ac*cos(wc*t1)
+subplot(3,1,2)
+plot(t1,c)
+title('carrier signal')
+xlabel('time')
+ylabel('amplitude')
+pm=ac*cos(wc*t1+m.*fs)
+subplot(3,1,3)
+plot(t1,pm)
+title('phase modulated signal')
+xlabel('time')
+ylabel('amplitude')
+
+
+
+
+4.write a program to generate Amplitude Demodulation using MATLAB
+
+t = 0 : 0.001 : 1;
+fc = 100;
+fm = 10;
+am = 1;
+ac = 1;
+mt = am*sin(2*pi*fm*t);
+subplot(4,1,1);
+plot(t,mt);
+title('message signal ');
+xlabel('time');
+ylabel('amplitude');
+ct = ac*sin(2*pi*fc*t);
+subplot(4,1,2);
+plot(t,ct);
+title('message signal ');
+xlabel('time');
+ylabel('amplitude');
+k = 0.5;
+yt = ac.*(1+k*am.*sin(2*pi*fm*t)).*sin(2*pi*fc*t);
+subplot(4,1,3);
+plot(t,yt);
+title('modulated signal ');
+xlabel('time');
+ylabel('amplitude'); 
+r = yt.*ct;
+[b,a] = butter(4,0.04);
+%[b,a] = butter(n,Wn) returns the transfer function coefficients of an nth-order lowpass digital Butterworth filter with normalized cutoff frequency Wn.
+mr = filter(b,a,r);
+subplot(4,1,4);
+plot(t,mr);
+title('demodulated signal ');
+xlabel('time');
+ylabel('amplitude');
+
+
+
+5.Write a program to generate Frequency Demodulation using MATLAB
+
+clc;
+clear all;
+close all;
+fs=10000;
+fm=35;
+fc=500;
+am=1;
+ac=1;
+b=10;
+t=(0:0.1*fs)/fs;
+
+wc=2*pi*fc;
+wm=2*pi*fm;
+m_t= am*cos(wm*t);
+subplot(5,1,1);
+plot(t,m_t);
+title("Message signal(fm=35hz)");
+grid on;
+
+c_t=ac*cos(wc*t);
+subplot(5,1,2);
+plot(t,c_t);
+title("Carrier signal");
+grid on;
+
+s_t= ac*cos((wc*t) + b*sin(wm*t));
+subplot(5,1,3);
+plot(t,s_t);
+title("Modulated signal");
+grid on;
+
+d=demod(s_t,fc,fs,'fm');
+subplot(5,1,4);
+plot(t,d);
+title("Demodulated signal");
+grid on;
+
+
+6.Write a program to generate Pre-Emphasis & DE-Emphasis waves by using MATLAB
+
+f1 = 10;
+for f = 1:50
+x(f) = (1/sqrt(1+(f1/f)^2))
+f2(f) = f;
+end
+subplot(2,1,1)
+plot(f2,x)
+title('pre emphasis signal')
+
+
+for f = 1:50
+y(f) = (1/sqrt(1+(f/f1)^2))
+f3(f) = f;
+end
+subplot(2,1,2)
+plot(f3,y)
+title('de emphasis signal')
